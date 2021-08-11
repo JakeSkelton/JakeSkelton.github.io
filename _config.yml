@@ -1,7 +1,7 @@
 title: Jake Skelton's Portfolio
 description: A place for me to share electronics, coding, physics, and maths
  projects
-baseurl: ""
+#baseurl: ""
 url: "https://jakeskelton.co.uk"
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
