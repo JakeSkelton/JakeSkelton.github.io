@@ -1,7 +1,7 @@
 ---
-title: First page
+title: About
 layout: default
-filename: first_page.md
+filename: about.md
 ---
 
 # First Page
