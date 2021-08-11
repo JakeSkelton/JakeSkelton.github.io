@@ -276,6 +276,7 @@ DEPENDENCIES
   github-pages
   jekyll
   jekyll-theme-minimal
+  minima
 
 BUNDLED WITH
    2.1.2
