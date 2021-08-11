@@ -1,6 +1,6 @@
 ---
 title: Jake Skelton's Portfolio
-layout: template
+layout: default
 filename: index.md
 ---
 

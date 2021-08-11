@@ -1,6 +1,6 @@
 ---
 title: First page
-layout: template
+layout: default
 filename: first_page.md
 ---
 
