@@ -1,0 +1,15 @@
+---
+title: Home
+layout: default
+filename: index.md
+---
+
+<h1> Jake Skelton's Portfolio </h1>
+
+<ul>
+    {% for post in site.posts %}
+      <li>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
