@@ -1,5 +1,5 @@
 ---
-title: Jake Skelton's Portfolio
+title: Home
 layout: default
 filename: index.md
 ---
