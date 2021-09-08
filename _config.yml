@@ -9,3 +9,8 @@ theme: minima
 plugins:
 - jekyll-remote-theme
 - jekyll-seo-tag
+defaults:
+  - scope:
+      path: "assets/img"
+    values:
+      image: true
