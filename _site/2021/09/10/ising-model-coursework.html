@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods | Jake Skelton’s Portfolio</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Context" />
+<meta property="og:description" content="Context" />
+<link rel="canonical" href="http://localhost:4000/2021/09/10/ising-model-coursework.html" />
+<meta property="og:url" content="http://localhost:4000/2021/09/10/ising-model-coursework.html" />
+<meta property="og:site_name" content="Jake Skelton’s Portfolio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-09-10T00:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/09/10/ising-model-coursework.html"},"headline":"Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods","dateModified":"2021-09-10T00:00:00+01:00","datePublished":"2021-09-10T00:00:00+01:00","description":"Context","url":"http://localhost:4000/2021/09/10/ising-model-coursework.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Jake Skelton's Portfolio" /><link rel="shortcut icon" type="image/png" href="favicon.png">
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jake Skelton&#39;s Portfolio</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about.html">About</a><a class="page-link" href="/">Home</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2021-09-10T00:00:00+01:00" itemprop="datePublished">Sep 10, 2021
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="context">Context</h2>
+
+<p>This post documents a piece of coursework I completed in April 2021 for the final year of my physics batchelors degree. The brief was to use Python (or C++) to build an outlined simulation, or analyse some given data, extract meaningful resulsts, then write a 3000 word paper describing and evaluating the process.</p>
+
+<p>There was not total freedom to choose the subject of the work, but I had read about the Ising model previously and was eager to learn more so this suited me fine.</p>
+
+<p>The paper itself is attached as a pdf below, and I have reproduced the abstract for this webpage. Meanwhile, all the code is available on my <a href="https://github.com/JakeSkelton/ising-model-MCMC">GitHub</a>, and there is an example listing from the main numerical module below.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>In this paper, we present observations of a two-dimensional Ising model, simulated with the Metropolis algorithm, a Markov chain Monte Carlo method. Square lattices are used, with periodic boundary conditions and nearest-neighbour spin-spin interactions. Considerations of Markov chain convergence and time correlations are taken into account, and the variation of magnetisation and heat capacity with temperature is observed, for a range of lattice sizes and applied magnetic fields. Hysteretic phenomena in the Ising model under an applied field are also investigated. In addition, we make an estimate of the critical temperature of an infinite 2D lattice, \(2.263 \pm 0.013 \; J/k_B\). Onsager’s analytical result of \(2/\ln(1 + \sqrt{2}) \; J/k_B\) differs from our estimate by only 0.2%, and lies within error.</p>
+
+<h3 id="download-pdf"><a href="/assets/ising_model.pdf">Download PDF</a></h3>
+
+<h2 id="metropolis-hastings-algorithm-subroutine">Metropolis-Hastings algorithm subroutine</h2>
+
+<div class="language-cython highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># -*- coding: utf-8 -*-
+</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">cimport</span> <span class="nn">cython</span>
+<span class="kn">from</span> <span class="nn">libc.math</span> <span class="kn">cimport</span> <span class="n">exp</span>
+
+<span class="o">@</span><span class="n">cython</span><span class="p">.</span><span class="nf">boundscheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="o">@</span><span class="n">cython</span><span class="p">.</span><span class="nf">nonecheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">metrohaste_vect</span><span class="p">(</span><span class="kt">int</span> <span class="n">numsteps</span><span class="p">,</span> <span class="kt">int</span><span class="p">[:,:]</span> <span class="n">s</span><span class="p">,</span> <span class="kt">double</span><span class="p">[:]</span> <span class="n">H</span><span class="p">,</span> <span class="kt">double</span><span class="p">[:]</span> <span class="n">T</span><span class="p">,</span> <span class="n">RNG</span><span class="p">):</span>
+    <span class="s">"""
+    A fast, Cython-based method to carry out one timestep of the Metropolis-
+    -Hastings algorithm, a Markov chain Monte Carlo method. The lattice
+    is stepped through in a left-to-right scanning fashion. This version
+    outputs statistics of the lattice over time, like metrohaste_stats, but
+    takes temperature and magnetic field arguments as vectors of length
+    'numsteps', in order to cycle the magnetic field or anneal the lattice
+    according to a predefined trajectory.
+
+    Parameters
+    ----------
+    numsteps : int
+        The number of Metropolis-Hastings timesteps to perform.
+    s : square numpy array of ints
+        The spin lattice, must be square and of type int.
+    H : float
+        The applied magnetic field, with dimensions (energy)/(spin).
+    T : float
+        The heat bath temperature, with dimensions of (energy).
+    RNG : numpy.random generator object
+        Seeded random number generator. Passing this to the function allows
+        results to be repeated starting from a mother seed.
+
+    Returns
+    -------
+    s_new : numpy array
+        The updated spin lattice, ater 'numsteps' timesteps.
+    sbars : numpy array    
+        A 1D array of the lattice's mean spin at each timestep.
+    energies : 
+        A 1D array of the lattice's total energy at each timestep.
+    """</span>
+    <span class="k">cdef</span> <span class="kt">Py_ssize_t</span> <span class="n">N_ind</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">cdef</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">cdef</span> <span class="kt">double</span> <span class="n">deltaE</span><span class="p">,</span> <span class="n">E_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">T_t</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">H_t</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">cdef</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sqcount</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">cdef</span> <span class="kt">double</span><span class="p">[:,:]</span> <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+    <span class="k">cdef</span> <span class="kt">double</span><span class="p">[:]</span> <span class="n">sbars</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">numsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">cdef</span> <span class="kt">double</span><span class="p">[:]</span> <span class="n">energy</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">numsteps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">cdef</span> <span class="kt">Py_ssize_t</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ind</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ind</span><span class="p">):</span>
+            <span class="n">E_t</span> <span class="o">-=</span> <span class="p">(</span><span class="mf">0.25</span><span class="o">*</span><span class="p">(</span><span class="kt">s</span><span class="p">[(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span>
+                    <span class="kt">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">])</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">H_t</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+    <span class="kt">energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">E_t</span>
+    
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numsteps</span><span class="p">):</span>
+        <span class="n">T_t</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">H_t</span> <span class="o">=</span> <span class="n">H</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">sqcount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">RNG</span><span class="p">.</span><span class="nf">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ind</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_ind</span><span class="p">):</span>
+                <span class="n">deltaE</span> <span class="o">=</span> <span class="p">(</span><span class="kt">s</span><span class="p">[(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span>
+                          <span class="kt">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">H_t</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="n">deltaE</span><span class="o">/</span><span class="n">T_t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]):</span>
+                    <span class="kt">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">E_t</span> <span class="o">+=</span> <span class="n">deltaE</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">sqcount</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+        <span class="kt">sbars</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;</span><span class="n">count</span><span class="o">/&lt;</span><span class="n">double</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">N</span><span class="o">*</span><span class="n">N</span><span class="p">)</span>
+        <span class="kt">energy</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">E_t</span>
+        
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">asarray</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">asarray</span><span class="p">(</span><span class="n">sbars</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">asarray</span><span class="p">(</span><span class="n">energy</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="a-word-on-copyright">A word on copyright</h2>
+
+<p>With the obvious exception of quoted material in the text, the paper, all it’s figures, and the code are entirely my own work. You are welcome to re-use the figures (and of course the programs can generate more) so long as the source is attributed, and as GitHub will tell you, the code is under the GPL.</p>
+
+  </div><a class="u-url" href="/2021/09/10/ising-model-coursework.html" hidden></a>
+
+  
+  <script type="text/javascript" async
+   src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'>
+  </script>
+  
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Jake Skelton&#39;s Portfolio</h2>
+
+    <div class="footer-col-wrapper">
+      <!--
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Jake Skelton&#39;s Portfolio</li></ul>
+      </div>
+    -->
+
+      <div class="footer-col footer-col-2">
+        <!--<ul class="social-media-list"></ul>
+-->
+        <span>
+          &copy; 2021 <p> Jake Skelton</p>
+        </span>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>A place for me to share electronics, coding, physics, and maths projects.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X1L5T0H0C9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X1L5T0H0C9');
+</script>
+</html>
