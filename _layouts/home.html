@@ -1,6 +1,5 @@
 ---
 layout: default
-title: Posts
 ---
 
 <div class="home">
@@ -22,13 +21,12 @@ title: Posts
             {{ post.title | escape }}
           </a>
         </h3>
-        {{ post.date}}
-        {{ post.excerpt }}
+        {%- if site.show_excerpts -%}
+          {{ post.excerpt }}
+        {%- endif -%}
       </li>
       {%- endfor -%}
     </ul>
-
-    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
   {%- endif -%}
 
 </div>

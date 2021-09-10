@@ -1,9 +1,10 @@
 ---
 title: Home
-layout: default
+layout: home
 filename: index.md
+order: 1
 ---
-
+<!--
 <h1> Jake Skelton's Portfolio </h1>
 
 <ul>
@@ -12,4 +13,4 @@ filename: index.md
         <a href="{{ post.url }}">{{ post.title }}</a>
       </li>
     {% endfor %}
-  </ul>
+  </ul>-->

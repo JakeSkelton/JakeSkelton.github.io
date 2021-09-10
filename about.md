@@ -2,6 +2,7 @@
 title: About
 layout: default
 filename: about.md
+order: 2
 ---
 
 # About
