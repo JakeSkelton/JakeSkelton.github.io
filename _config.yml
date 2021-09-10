@@ -5,13 +5,9 @@ description: A place for me to share electronics, coding, physics, and maths
 
 url: "https://jakeskelton.co.uk"
 
-# Specify the name of a file to show as a masthead graphic at the top of each page, instead of a title, here:
-masthead: /favicon.png
-
 #theme: minimal
 theme: minima
 # remote_theme: pages-themes/minimal@v0.2.0
-
 
 plugins:
 - jekyll-remote-theme

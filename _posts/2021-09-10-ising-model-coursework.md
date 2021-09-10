@@ -3,6 +3,7 @@ layout: post
 title: "Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods"
 mathjax: true
 published: true
+tags: physics, programming, simulation, "condensed matter"
 ---
 
 ## Context
