@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/09/10/ising-model-coursework.html"},"headline":"Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods","dateModified":"2021-09-10T00:00:00+01:00","datePublished":"2021-09-10T00:00:00+01:00","description":"Context","url":"http://localhost:4000/2021/09/10/ising-model-coursework.html","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","headline":"Coursework: Features of a 2D Ising Model simulated with Markov chain Monte Carlo methods","dateModified":"2021-09-10T00:00:00+01:00","datePublished":"2021-09-10T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/09/10/ising-model-coursework.html"},"description":"Context","url":"http://localhost:4000/2021/09/10/ising-model-coursework.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Jake Skelton's Portfolio" /><link rel="shortcut icon" type="image/png" href="favicon.png">
 </head>
@@ -56,6 +56,15 @@
 <p>There was not total freedom to choose the subject of the work, but I had read about the Ising model previously and was eager to learn more so this suited me fine.</p>
 
 <p>The paper itself is attached as a pdf below, and I have reproduced the abstract for this webpage. Meanwhile, all the code is available on my <a href="https://github.com/JakeSkelton/ising-model-MCMC">GitHub</a>, and there is an example listing from the main numerical module below.</p>
+
+<figure>
+<div class="myvideo">
+   <video align="center" style="display:block; width:100%; height:auto;" autoplay="" controls="" loop="loop">
+       <source src="/assets/images/1000N_lowT_reacheseq.mp4" type="video/mp4" />
+   </video>
+</div>
+<figcaption>A 256x256 Ising lattice below its critical temperature reaching equilibrium. Black pixels represent 'up' spins, and white 'down' spins. </figcaption>
+</figure>
 
 <h2 id="abstract">Abstract</h2>
 
@@ -141,9 +150,11 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">asarray</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">asarray</span><span class="p">(</span><span class="n">sbars</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">asarray</span><span class="p">(</span><span class="n">energy</span><span class="p">))</span>
 </code></pre></div></div>
 
-<h2 id="a-word-on-copyright">A word on copyright</h2>
+<h3 id="a-word-on-copyright">A word on copyright</h3>
 
-<p>With the obvious exception of quoted material in the text, the paper, all it’s figures, and the code are entirely my own work. You are welcome to re-use the figures (and of course the programs can generate more) so long as the source is attributed, and as GitHub will tell you, the code is under the GPL.</p>
+<p><small>
+With the obvious exception of quoted material in the text, the paper, all it’s figures, and the code are entirely my own work. You are welcome to re-use the figures (and of course the programs can generate more) so long as the source is attributed, and as GitHub will tell you, the code is under the GPL. 
+</small></p>
 
   </div><a class="u-url" href="/2021/09/10/ising-model-coursework.html" hidden></a>
 

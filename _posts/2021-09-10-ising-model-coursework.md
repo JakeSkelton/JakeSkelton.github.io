@@ -14,6 +14,15 @@ There was not total freedom to choose the subject of the work, but I had read ab
 
 The paper itself is attached as a pdf below, and I have reproduced the abstract for this webpage. Meanwhile, all the code is available on my [GitHub](https://github.com/JakeSkelton/ising-model-MCMC), and there is an example listing from the main numerical module below.
 
+<figure>
+<div class="myvideo">
+   <video align="center" style="display:block; width:100%; height:auto;" autoplay controls loop="loop">
+       <source src="/assets/images/1000N_lowT_reacheseq.mp4" type="video/mp4" />
+   </video>
+</div>
+<figcaption>A 256x256 Ising lattice below its critical temperature reaching equilibrium. Black pixels represent 'up' spins, and white 'down' spins. </figcaption>
+</figure>
+
 ## Abstract
 
 In this paper, we present observations of a two-dimensional Ising model, simulated with the Metropolis algorithm, a Markov chain Monte Carlo method. Square lattices are used, with periodic boundary conditions and nearest-neighbour spin-spin interactions. Considerations of Markov chain convergence and time correlations are taken into account, and the variation of magnetisation and heat capacity with temperature is observed, for a range of lattice sizes and applied magnetic fields. Hysteretic phenomena in the Ising model under an applied field are also investigated. In addition, we make an estimate of the critical temperature of an infinite 2D lattice, $$2.263 \pm 0.013 \; J/k_B$$. Onsager's analytical result of $$2/\ln(1 + \sqrt{2}) \; J/k_B$$ differs from our estimate by only 0.2%, and lies within error.
@@ -99,6 +108,8 @@ def metrohaste_vect(int numsteps, int[:,:] s, double[:] H, double[:] T, RNG):
     return (np.asarray(s), np.asarray(sbars), np.asarray(energy))
 ```
 
-## A word on copyright
+### A word on copyright
 
+<small>
 With the obvious exception of quoted material in the text, the paper, all it's figures, and the code are entirely my own work. You are welcome to re-use the figures (and of course the programs can generate more) so long as the source is attributed, and as GitHub will tell you, the code is under the GPL. 
+</small>

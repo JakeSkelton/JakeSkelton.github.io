@@ -16,7 +16,7 @@ img { max-width: 100%; vertical-align: middle; }
 /** Figures */
 figure > img { display: block; }
 
-figcaption { font-size: 14px; }
+figcaption { font-size: 14px; text-align: middle; }
 
 /** Lists */
 ul, ol { margin-left: 30px; }
