@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Masters project: Condensation in porous media: a fractal analysis of avalanches | Jake Skelton’s Portfolio</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Masters project: Condensation in porous media: a fractal analysis of avalanches" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Context" />
+<meta property="og:description" content="Context" />
+<link rel="canonical" href="http://localhost:4000/2022/11/02/porous-lattice-gas-model.html" />
+<meta property="og:url" content="http://localhost:4000/2022/11/02/porous-lattice-gas-model.html" />
+<meta property="og:site_name" content="Jake Skelton’s Portfolio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-02T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Masters project: Condensation in porous media: a fractal analysis of avalanches" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-02T00:00:00+00:00","datePublished":"2022-11-02T00:00:00+00:00","description":"Context","headline":"Masters project: Condensation in porous media: a fractal analysis of avalanches","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/11/02/porous-lattice-gas-model.html"},"url":"http://localhost:4000/2022/11/02/porous-lattice-gas-model.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Jake Skelton&apos;s Portfolio" /><link rel="shortcut icon" type="image/png" href="favicon.png">
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jake Skelton&#39;s Portfolio</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/about.html">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Masters project: Condensation in porous media: a fractal analysis of avalanches</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-11-02T00:00:00+00:00" itemprop="datePublished">Nov 2, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="context">Context</h2>
+
+<p>This post documents my masters thesis, completed in May 2022, under the supervision of Dr Sergei Taraskin. The subject of the paper is the disorder-induced phase transition that occurs in a lattice-gas model of condensation within a highly porous, disordered substrate such as aerogel. I like to call the model the ‘porous lattice gas model’, but its creators, Kierlik, Rosinberg, Tarjus, and Pitard <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, did not use that name.</p>
+
+<p>The paper itself is attached as a pdf below, and I have reproduced the abstract for this webpage. Meanwhile, all the code is available on my <a href="https://github.com/JakeSkelton/avalanche_fractal_analysis">GitHub</a>, and there is an example listing from the main numerical module below.</p>
+
+<figure>
+<center>
+<img src="/assets/coord_2d_tested_0_0_aerogel_l80_f085_227.png" align="center" width="70%" />
+</center>
+<figcaption> A 'freeze-frame' of all lattice cells involved in a single condensation avalanche in one realisation of the porous lattice gas model. To within the resolution of the lattice, the fractal ("structure on all length scales") nature of the object is evident.
+Cells are coloured on a linear scale from dark grey to white based upon their z-coordinate, to aid the eye. What appear to be stranded 'islands' of liquid are in fact connected to the main edifice under periodic boundary conditions. </figcaption>
+</figure>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The random-field Ising model is the archetypical system for modelling phase transitions in disordered systems, and it provided the first example of a disorder-induced critical point. More recently, analogous critical behaviour has been discovered in the porous lattice gas model of condensation in a disordered medium.
+It is an open question whether these two critical points are in the same universality class, as is the case for the conventional 3-dimensional Ising model and the liquid-gas transition.
+Here, we investigate this possibility by calculating the fractal dimensions of the so-called spanning avalanches that occur in the porous lattice gas transition; these dimensions are universal exponents.
+We estimate that the volumetric fractal dimension of one type of spanning avalanche, known as subcritical 3-dimensional,  is 0.971 ± 003, in contradiction with previous estimates from the random-field Ising model, of 
+0.993 ± 007. There remain, however, doubts about the validity of this number.</p>
+
+<h3 id="download-pdf"><a href="/assets/pt_iii_project_final_edit.pdf">Download PDF</a></h3>
+
+<h2 id="program-module-with-the-key-numerical-routines-for-sandbox-analysis">Program module with the key numerical routines for sandbox analysis</h2>
+
+<div class="language-fortran highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">! Filename: sandbox.f95</span><span class="w">
+</span><span class="c1">! Core code to perform sandbox analysis on a single avalanche. To be called by</span><span class="w">
+</span><span class="c1">! program main stored in main.f95</span><span class="w">
+
+</span><span class="k">module</span><span class="w"> </span><span class="n">sandbox</span><span class="w">
+
+</span><span class="k">implicit</span><span class="w"> </span><span class="k">none</span><span class="w">
+</span><span class="k">contains</span><span class="w">
+
+</span><span class="k">subroutine</span><span class="w"> </span><span class="n">main_loop</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">mp</span><span class="p">,</span><span class="w"> </span><span class="n">vp</span><span class="p">,</span><span class="w"> </span><span class="n">mf</span><span class="p">,</span><span class="w"> </span><span class="n">vf</span><span class="p">)</span><span class="w">
+
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+      </span><span class="n">coords</span><span class="p">(:,:),</span><span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="c1">! BCC coordinates of avalanche fluid cells</span><span class="w">
+      </span><span class="n">A</span><span class="p">(:,:,:),</span><span class="w"> </span><span class="p">&amp;</span><span class="w">    </span><span class="c1">! Array representation of avalanche</span><span class="w">
+      </span><span class="n">T</span><span class="p">(:,:,:)</span><span class="w">       </span><span class="c1">! Array representation of pore space</span><span class="w">
+   </span><span class="kt">real</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">out</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+      </span><span class="n">mp</span><span class="p">(:),</span><span class="w"> </span><span class="p">&amp;</span><span class="w">       </span><span class="c1">! Mean number of pore cells in bounding box of linear size </span><span class="w">
+                     </span><span class="c1">!  [index]</span><span class="w">
+      </span><span class="n">vp</span><span class="p">(:),</span><span class="w"> </span><span class="p">&amp;</span><span class="w">       </span><span class="c1">! As above, but variance</span><span class="w">
+      </span><span class="n">mf</span><span class="p">(:),</span><span class="w"> </span><span class="p">&amp;</span><span class="w">       </span><span class="c1">! Mean number of fluid cells in bounding box of linear</span><span class="w">
+                     </span><span class="c1">!  size [index]</span><span class="w">
+      </span><span class="n">vf</span><span class="p">(:)</span><span class="w">          </span><span class="c1">! As above, but variance</span><span class="w">
+
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">tessA</span><span class="p">(:,:,:),</span><span class="w"> </span><span class="n">tessT</span><span class="p">(:,:,:),</span><span class="w"> </span><span class="n">ii</span><span class="p">(:,:,:),</span><span class="w"> </span><span class="n">iiT</span><span class="p">(:,:,:)</span><span class="w">
+   </span><span class="kt">integer</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="w">
+   </span><span class="kt">integer</span><span class="o">*</span><span class="mi">8</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">numsites</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w">
+
+   </span><span class="c1">! Get important sizes from arguments</span><span class="w">
+   </span><span class="n">numsites</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+   </span><span class="n">lmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+   </span><span class="c1">! [1, lmax]^3 references the centre of the tesselated system</span><span class="w">
+   </span><span class="k">allocate</span><span class="p">(</span><span class="n">tessA</span><span class="p">(</span><span class="o">-</span><span class="n">lmax</span><span class="mi">+1</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="mi">+1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="mi">+1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+            </span><span class="n">tessT</span><span class="p">(</span><span class="o">-</span><span class="n">lmax</span><span class="mi">+1</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="mi">+1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="mi">+1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+               </span><span class="n">ii</span><span class="p">(</span><span class="o">-</span><span class="n">lmax</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+              </span><span class="n">iiT</span><span class="p">(</span><span class="o">-</span><span class="n">lmax</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">))</span><span class="w">
+               </span><span class="c1">! One greater on each dimension to prevent OOB</span><span class="w">
+
+   </span><span class="c1">! Tesselate A 3x3x3 times to deal with periodic BCs. Then, make </span><span class="w">
+   </span><span class="c1">! integral image from it</span><span class="w">
+   </span><span class="k">do</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">lmax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">lmax</span><span class="w">
+      </span><span class="k">do</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">lmax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">lmax</span><span class="w">
+         </span><span class="k">do</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">lmax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">lmax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">lmax</span><span class="w">
+            </span><span class="n">tessA</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="n">lmax</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">y</span><span class="o">+</span><span class="n">lmax</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">z</span><span class="o">+</span><span class="n">lmax</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w">
+            </span><span class="n">tessT</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="n">lmax</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">y</span><span class="o">+</span><span class="n">lmax</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">z</span><span class="o">+</span><span class="n">lmax</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="w">
+         </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+      </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+   </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+   </span><span class="k">call</span><span class="w"> </span><span class="n">makeii</span><span class="p">(</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="n">tessA</span><span class="p">,</span><span class="w"> </span><span class="n">ii</span><span class="p">)</span><span class="w">
+   </span><span class="k">call</span><span class="w"> </span><span class="n">makeii</span><span class="p">(</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="n">tessT</span><span class="p">,</span><span class="w"> </span><span class="n">iiT</span><span class="p">)</span><span class="w">
+
+   </span><span class="c1">! Calculate total mass in system</span><span class="w">
+   </span><span class="n">mp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.</span><span class="p">;</span><span class="w"> </span><span class="n">vp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.</span><span class="p">;</span><span class="w"> </span><span class="n">mf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.</span><span class="p">;</span><span class="w"> </span><span class="n">vf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.</span><span class="w">
+</span><span class="cp"># ifdef DEBUG</span><span class="w">
+   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s2">"(a8, i8, 5a4)"</span><span class="p">)</span><span class="w"> </span><span class="s1">'origin /'</span><span class="p">,</span><span class="w"> </span><span class="n">numsites</span><span class="p">,</span><span class="w"> </span><span class="s1">'x'</span><span class="p">,</span><span class="w"> </span><span class="s1">'y'</span><span class="p">,</span><span class="w"> </span><span class="s1">'z'</span><span class="p">,</span><span class="w"> </span><span class="s1">'l'</span><span class="w">
+</span><span class="cp"># endif</span><span class="w">
+   </span><span class="c1">! Main loop</span><span class="w">
+   </span><span class="k">do</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">numsites</span><span class="w">
+      </span><span class="n">coord</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coords</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="p">:)</span><span class="w">
+
+      </span><span class="c1">! Can save effort for single-element boxes</span><span class="w">
+      </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">coord</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">coord</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">coord</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="w">
+      </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="n">coord</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">coord</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">coord</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="w">
+      </span><span class="k">call</span><span class="w"> </span><span class="n">iterate_stats</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mf</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">vf</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w">
+      </span><span class="k">call</span><span class="w"> </span><span class="n">iterate_stats</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mp</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">vp</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w">
+
+      </span><span class="k">do</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">lmax</span><span class="w">
+</span><span class="cp">#ifdef DEBUG</span><span class="w">
+            </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">'(a, i16, 5i4)'</span><span class="p">,</span><span class="w"> </span><span class="n">advance</span><span class="o">=</span><span class="s1">'no'</span><span class="p">)</span><span class="w"> </span><span class="nb">achar</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="w">
+</span><span class="cp">#endif</span><span class="w">
+         </span><span class="k">call</span><span class="w"> </span><span class="n">iisum</span><span class="p">(</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">ii</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w">
+         </span><span class="k">call</span><span class="w"> </span><span class="n">iisum</span><span class="p">(</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">iiT</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w">
+         </span><span class="k">call</span><span class="w"> </span><span class="n">iterate_stats</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mf</span><span class="p">(</span><span class="n">l</span><span class="p">),</span><span class="w"> </span><span class="n">vf</span><span class="p">(</span><span class="n">l</span><span class="p">),</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w">
+         </span><span class="k">call</span><span class="w"> </span><span class="n">iterate_stats</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mp</span><span class="p">(</span><span class="n">l</span><span class="p">),</span><span class="w"> </span><span class="n">vp</span><span class="p">(</span><span class="n">l</span><span class="p">),</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w">
+
+      </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+   </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+
+   </span><span class="c1">! E(x^2) - (E(x))^2</span><span class="w">
+   </span><span class="n">vp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vp</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mp</span><span class="o">**</span><span class="mi">2</span><span class="w">
+   </span><span class="n">vf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vf</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mf</span><span class="o">**</span><span class="mi">2</span><span class="w">
+
+</span><span class="cp"># ifdef DEBUG </span><span class="w">
+   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w">
+</span><span class="cp"># endif</span><span class="w">
+
+</span><span class="k">end</span><span class="w"> </span><span class="k">subroutine</span><span class="w"> </span><span class="n">main_loop</span><span class="w">
+
+</span><span class="k">subroutine</span><span class="w"> </span><span class="n">makeii</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">ii</span><span class="p">)</span><span class="w">
+   </span><span class="c1">! Construct the integral image (Viola, Jones 2004) from a given array.</span><span class="w">
+
+   </span><span class="c1">! Had to make the argument list a bit ugly to retain funky subscripts</span><span class="w">
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">D</span><span class="w">      </span><span class="c1">! 1/3 * sidelength of A</span><span class="w">
+      </span><span class="c1">! Array ('image') we wish to compute sums on</span><span class="w">
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="o">-</span><span class="n">D</span><span class="mi">+1</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="mi">+1</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="mi">+1</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">A</span><span class="w">
+      </span><span class="c1">! Output object for integral image</span><span class="w">
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">out</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="o">-</span><span class="n">D</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">ii</span><span class="w">
+
+   </span><span class="kt">integer</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w">
+
+   </span><span class="n">ii</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w">
+   </span><span class="k">do</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="w">      </span><span class="c1">! Recall ii has non-standard subscripts</span><span class="w">
+      </span><span class="k">do</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="w">
+         </span><span class="k">do</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">D</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="w">
+            </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+               </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+               </span><span class="o">-</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+               </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">x</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="mi">-1</span><span class="p">)</span><span class="w">
+         </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+      </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+   </span><span class="k">end</span><span class="w"> </span><span class="k">do</span><span class="w">
+
+</span><span class="k">end</span><span class="w"> </span><span class="k">subroutine</span><span class="w"> </span><span class="n">makeii</span><span class="w">
+
+</span><span class="k">subroutine</span><span class="w"> </span><span class="n">iisum</span><span class="p">(</span><span class="n">lmax</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">ii</span><span class="p">,</span><span class="w"> </span><span class="n">centre</span><span class="p">,</span><span class="w"> </span><span class="n">mass</span><span class="p">)</span><span class="w">
+   </span><span class="c1">! Compute a box sum on an array by utilising the integral image </span><span class="w">
+   </span><span class="c1">! representation. This method performs independently of box size.</span><span class="w">
+
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">lmax</span><span class="w">
+      </span><span class="c1">! The integral image array</span><span class="w">
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="o">-</span><span class="n">lmax</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="o">-</span><span class="n">lmax</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">,</span><span class="o">-</span><span class="n">lmax</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">lmax</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">ii</span><span class="w">
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">l</span><span class="w">            </span><span class="c1">! Sidelength of box to sum</span><span class="w">
+   </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">centre</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">    </span><span class="c1">! Centre of box</span><span class="w">
+   </span><span class="kt">integer</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">out</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">mass</span><span class="w">      </span><span class="c1">! Where the total will be put</span><span class="w">
+
+   </span><span class="kt">integer</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">
+
+   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w">      </span><span class="c1">! Test even</span><span class="w">
+      </span><span class="n">lb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">l</span><span class="p">/</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c1">! Asymmetric bounds</span><span class="w">
+   </span><span class="k">else</span><span class="w">
+      </span><span class="n">lb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)/</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w">    </span><span class="c1">! Symmetric bounds</span><span class="w">
+   </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="w">
+
+   </span><span class="c1">! Can be expressed more succintly but this needs to go fast</span><span class="w">
+   </span><span class="n">mass</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w"> 
+         </span><span class="o">-</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+         </span><span class="o">-</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+         </span><span class="o">-</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+         </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+         </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+         </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="p">&amp;</span><span class="w">
+         </span><span class="o">-</span><span class="w"> </span><span class="n">ii</span><span class="p">(</span><span class="n">lb</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">lb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">    </span><span class="p">)</span><span class="w"> 
+
+</span><span class="k">end</span><span class="w"> </span><span class="k">subroutine</span><span class="w"> </span><span class="n">iisum</span><span class="w">
+
+</span><span class="k">subroutine</span><span class="w"> </span><span class="n">iterate_stats</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">sumsq</span><span class="p">,</span><span class="w"> </span><span class="n">datum</span><span class="p">)</span><span class="w">
+</span><span class="c1">! Update mean and sum of squares using 'datum' when moving from n - 1 to n</span><span class="w">
+</span><span class="c1">! data points. i.e. this should first be called with n=1.</span><span class="w">
+
+   </span><span class="kt">integer</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">n</span><span class="w">
+   </span><span class="kt">integer</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">in</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">datum</span><span class="w">
+   </span><span class="kt">real</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="k">inout</span><span class="p">)</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">sumsq</span><span class="w">
+
+   </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">datum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">mean</span><span class="p">)</span><span class="w"> </span><span class="p">/</span><span class="w"> </span><span class="n">n</span><span class="w">
+   </span><span class="n">sumsq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">datum</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sumsq</span><span class="p">)</span><span class="w"> </span><span class="p">/</span><span class="w"> </span><span class="n">n</span><span class="w">
+
+</span><span class="k">end</span><span class="w"> </span><span class="k">subroutine</span><span class="w"> </span><span class="n">iterate_stats</span><span class="w">
+
+</span><span class="k">end</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">sandbox</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="references">References</h2>
+
+<h3 id="a-word-on-copyright">A word on copyright</h3>
+
+<p><small>
+Unless otherwise stated, all written material, images, and code on this webpage and in the paper are entirely my own work. If you wish to reuse anything, I would kindly request that you clearly credit myself and Dr Taraskin.
+</small></p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Kierlik, E., Rosinberg, M. L., Tarjus, G. &amp; Pitard, E. Molecular Physics 95, 341–351. (1998). <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div><a class="u-url" href="/2022/11/02/porous-lattice-gas-model.html" hidden></a>
+
+  
+  <script type="text/javascript" async
+   src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'>
+  </script>
+  
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Jake Skelton&#39;s Portfolio</h2>
+
+    <div class="footer-col-wrapper">
+      <!--
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Jake Skelton&#39;s Portfolio</li></ul>
+      </div>
+    -->
+
+      <div class="footer-col footer-col-2">
+        <!--<ul class="social-media-list"></ul>
+-->
+        <span>
+          &copy; 2022 <p> Jake Skelton</p>
+        </span>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>A place for me to share electronics, coding, physics, and maths projects.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X1L5T0H0C9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X1L5T0H0C9');
+</script>
+</html>
